@@ -197,7 +197,13 @@ $("movieForm").addEventListener("submit",e=>{
     studio:$("studio").value.trim(),description:$("description").value.trim(),
     watched:false,favorite:false,rating:0
   });
-  save();render();$("movieForm").reset();$("addPanel").classList.add("hidden");
+  });
+  loadMoviePoster(movies[movies.length - 1]);
+  save();
+  render();
+  $("movieForm").reset();
+  $("addPanel").classList.add("hidden");
+});
 });
 
 $("movies").addEventListener("click",e=>{
@@ -222,6 +228,14 @@ $("movies").addEventListener("click",e=>{
   save();render();
 });
 render();
+
+// Load posters for movies that don't have one yet
+movies
+  .filter(movie => !movie.poster)
+  .forEach(movie => loadMoviePoster(movie));
 </script>
 </body>
 </html>
+
+
+
