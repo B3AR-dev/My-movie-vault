@@ -227,6 +227,11 @@ $("movies").addEventListener("click",e=>{
   save();render();
 });
 render();
+  movies.forEach(movie => {
+  if (!movie.poster) {
+    loadMoviePoster(movie);
+  }
+});
 </script>
 </body>
 </html>
