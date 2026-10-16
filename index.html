@@ -119,6 +119,36 @@ try {
 let tab = "all";
 const $ = id => document.getElementById(id);
 function save(){try{localStorage.setItem("movieVaultMovies",JSON.stringify(movies));}catch(e){}}
+  const TMDB_KEY = "6c6ed646ac2ed5b0a6295f14eb26cdc8";
+const TMDB_IMAGE = "https://image.tmdb.org/t/p/w500";
+
+async function loadMoviePoster(movie) {
+  if (movie.poster) return;
+
+  try {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(movie.title)}&year=${movie.year || ""}`;
+
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YzZlZDY0NmFjMmVkNWIwYTYyOTVmMTRlYjI2Y2RjOCIsIm5iZiI6MTc5MjEzMTMzMC44MjQsInN1YiI6IjZhZDFjMTAyZjBiZDZjNTY2Y2Y3ZmYwMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.csAj31RIqxa7Wad_mjrSAciC05OTFtkt3ocpBndBRUg`,
+        accept: "application/json"
+      }
+    });
+
+    if (!response.ok) return;
+
+    const data = await response.json();
+    const match = data.results?.find(item => item.poster_path);
+
+    if (match) {
+      movie.poster = match.poster_path;
+      save();
+      render();
+    }
+  } catch (error) {
+    console.log("Could not load poster for", movie.title);
+  }
+}
 function escapeHTML(s){return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
 function render(){
