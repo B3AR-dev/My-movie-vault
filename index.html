@@ -1,3 +1,4 @@
+HTML
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,90 +9,56 @@
 <title>My Movie Vault</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#10131d;color:#f5f5f7;font-family:Arial,sans-serif}
-header{background:#191e2e;padding:24px 16px}
+body{margin:0;background:#10131d;color:#f5f5f5;font-family:Arial,sans-serif}
+header{background:#191e2e;padding:22px 16px}
 h1{margin:0;color:#e8bd72;font-size:27px}
 header p{color:#c3c7d2;margin-bottom:0}
 main{max-width:850px;margin:auto;padding:16px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat,.panel,.movie{background:#1b2030;border:1px solid #30364a;border-radius:12px;padding:14px}
-.stat strong{display:block;font-size:24px;margin-top:6px}
-.progress{height:7px;background:#34394b;border-radius:8px;margin-top:14px;overflow:hidden}
-#bar{height:100%;background:#e8bd72;width:0}
-nav{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}
-button,select,input{font:inherit;border-radius:8px;padding:11px;border:1px solid #42495c}
-button{background:#e8bd72;color:#171b2a;border:0;font-weight:bold;cursor:pointer}
-nav button{background:#272d40;color:white}
-nav button.active{background:#e8bd72;color:#171b2a}
-input,select{background:#111522;color:white;width:100%;min-width:0}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0}
-#search{margin:12px 0}
-#movies{display:grid;gap:12px;margin-top:14px}
-.movie{display:flex;gap:13px;align-items:stretch}
-.poster{width:90px;min-width:90px;min-height:125px;border-radius:8px;background:linear-gradient(145deg,#343b55,#121521);display:flex;align-items:center;justify-content:center;font-size:34px}
-.details{flex:1;min-width:0}
-.details h3{margin:0 0 6px;font-size:18px}
-.muted{color:#b5bac8;font-size:13px}
-.desc{font-size:14px;line-height:1.4;color:#e0e2e9}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.actions button{font-size:12px;padding:9px}
-.actions .secondary{background:#343b50;color:white}
-.actions .heart{background:#343b50;color:#ff9bb0}
-.panel{margin-top:16px}
-.panel h2{font-size:19px}
-label{display:block;font-size:13px;color:#c3c7d2;margin:10px 0 5px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat,.panel,.movie{background:#1b2030;border:1px solid #34394b;border-radius:12px;padding:12px}
+.stat strong{display:block;font-size:24px;color:#e8bd72}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+button,select,input,textarea{font:inherit;border-radius:8px;padding:11px;border:1px solid #454b60}
+button{background:#e8bd72;color:#171b2a;font-weight:bold;cursor:pointer}
+button.active{background:#fff}
+input,select,textarea{background:#10131d;color:white;min-width:0;width:100%}
+.filters{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:14px}
+.movies{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}
+.movie h3{margin:5px 0 8px;font-size:17px}
+.poster{height:115px;display:grid;place-items:center;background:#292e40;border-radius:8px;font-size:38px;margin-bottom:10px}
+.movie p{color:#c3c7d2;font-size:13px}
+.movie button{width:100%;margin-top:6px}
+.small{font-size:12px;color:#c3c7d2}
+#addPanel{margin-bottom:16px}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:13px;margin:8px 0 5px}
 .full{grid-column:1/-1}
-#empty{padding:25px;text-align:center;color:#c3c7d2}
-footer{text-align:center;padding:25px;color:#8f96a8;font-size:12px}
-@media(max-width:390px){.poster{width:68px;min-width:68px;min-height:105px}.movie{padding:10px;gap:9px}.details h3{font-size:16px}}
+.hidden{display:none}
+footer{text-align:center;color:#9da4b8;padding:28px 0}
+@media(max-width:420px){.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:8px}.stat strong{font-size:20px}.filters{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
 </style>
 </head>
 <body>
 <header>
-<h1>🎬 MY MOVIE VAULT</h1>
-<p>Your movies. Your history. Your collection.</p>
+<h1>🎬 My Movie Vault</h1>
+<p>Your personal movie collection</p>
 </header>
 <main>
-<section class="stats">
-<div class="stat">In library<strong id="total">0</strong></div>
-<div class="stat">Watched<strong id="seen">0</strong></div>
-<div class="stat">Remaining<strong id="left">0</strong></div>
-</section>
-<div class="progress"><div id="bar"></div></div>
-<p class="muted" id="progressText">0% watched</p>
+<div class="stats">
+<div class="stat"><strong id="total">0</strong>Total movies</div>
+<div class="stat"><strong id="watchedCount">0</strong>Watched</div>
+<div class="stat"><strong id="favoriteCount">0</strong>Favorites</div>
+</div>
 
-<nav id="tabs">
-<button class="active" data-tab="All">All Movies</button>
-<button data-tab="Unwatched">Unwatched</button>
-<button data-tab="Watched">Watched</button>
-<button data-tab="Favorites">❤️ Favorites</button>
+<nav>
+<button class="active" data-tab="all">All Movies</button>
+<button data-tab="unwatched">Watchlist</button>
+<button data-tab="watched">Watched</button>
+<button data-tab="favorites">Favorites ★</button>
 </nav>
 
-<input id="search" placeholder="🔎 Search movie titles...">
 <div class="filters">
-<select id="studio">
-<option value="">All studios</option>
-<option>Warner Bros.</option>
-<option>20th Century Studios</option>
-<option>Universal Pictures</option>
-<option>Paramount Pictures</option>
-<option>Lionsgate</option>
-<option>Sony Pictures</option>
-<option>HBO</option>
-<option>Other / independent</option>
-</select>
-<select id="genre">
-<option value="">All genres</option>
-<option>Horror</option>
-<option>Creature Feature</option>
-<option>Thriller</option>
-<option>Sci-Fi</option>
-<option>Adventure</option>
-<option>Action</option>
-<option>Drama</option>
-<option>Comedy</option>
-</select>
+<input id="search" placeholder="Search movie titles...">
 <select id="sort">
 <option value="az">Title A–Z</option>
 <option value="za">Title Z–A</option>
@@ -100,29 +67,132 @@ footer{text-align:center;padding:25px;color:#8f96a8;font-size:12px}
 </select>
 </div>
 
-<button id="showAdd" style="width:100%">＋ Add a Movie</button>
-<section id="addPanel" class="panel" hidden>
+<button id="showAdd" style="width:100%;margin-bottom:14px">＋ Add a Movie</button>
+
+<section id="addPanel" class="panel hidden">
 <h2>Add a movie</h2>
 <form id="movieForm">
-<label>Movie title</label>
-<input id="title" required maxlength="120" placeholder="Movie name">
+<label for="title">Movie title</label>
+<input id="title" required maxlength="120">
 <div class="formgrid">
-<div><label>Release year</label><input id="year" type="number" min="1888" max="2026" value="2020" required></div>
-<div><label>Genre</label><select id="newGenre"><option>Horror</option><option>Creature Feature</option><option>Thriller</option><option>Sci-Fi</option><option>Adventure</option><option>Action</option><option>Drama</option><option>Comedy</option></select></div>
-<div class="full"><label>Studio</label><select id="newStudio"><option>Warner Bros.</option><option>20th Century Studios</option><option>Universal Pictures</option><option>Paramount Pictures</option><option>Lionsgate</option><option>Sony Pictures</option><option>HBO</option><option>Other / independent</option></select></div>
-<div class="full"><label>Description (optional)</label><input id="description" maxlength="500" placeholder="Short movie summary"></div>
+<div><label for="year">Release year</label><input id="year" type="number" min="1888" max="2100" placeholder="2024"></div>
+<div><label for="genre">Genre</label><select id="genre"><option>Horror</option><option>Thriller</option><option>Action</option><option>Science Fiction</option><option>Comedy</option><option>Drama</option><option>Adventure</option><option>Other</option></select></div>
+<div class="full"><label for="studio">Studio</label><input id="studio" placeholder="e.g. Universal Pictures"></div>
+<div class="full"><label for="description">Description (optional)</label><textarea id="description" rows="2"></textarea></div>
 </div>
-<button type="submit" style="margin-top:14px">Save Movie</button>
-<button type="button" id="cancelAdd" style="background:#343b50;color:white">Cancel</button>
+<button type="submit" style="margin-top:12px">Save Movie</button>
+<button type="button" id="cancelAdd">Cancel</button>
 </form>
 </section>
 
-<div id="movies"></div>
-<footer>My Movie Vault · Personal Movie Tracker</footer>
+<div id="movies" class="movies"></div>
+<p id="empty" class="small hidden">No movies found. Try another search or add a movie.</p>
+<footer>My Movie Vault · Your collection, your way</footer>
 </main>
+
 <script>
-const starter=[
-["The Collector",2009,"Other / independent","Horror","A masked intruder turns a house into a deadly trap."],
-["The Collection",2012,"Other / independent","Horror","A survivor returns to face a dangerous collector."],
-["Wrong Turn",2003,"20th Century Studios","Horror","Travelers become lost in the remote woods."],
-["
+const starter = [
+["The Collector",2009,"Horror","LD Entertainment","A masked intruder turns a home into a deadly trap."],
+["The Collection",2012,"Horror","LD Entertainment","A survivor returns to face a dangerous collector."],
+["Wrong Turn",2003,"Horror","20th Century Studios","Travelers encounter danger in the woods."],
+["Predator",1987,"Action","20th Century Studios","A rescue team faces a mysterious hunter."],
+["Alien",1979,"Science Fiction","20th Century Studios","A spaceship crew encounters a terrifying life-form."],
+["Jaws",1975,"Thriller","Universal Pictures","A coastal town faces a dangerous shark."],
+["Jurassic Park",1993,"Adventure","Universal Pictures","A dinosaur theme park becomes a fight for survival."],
+["The Thing",1982,"Horror","Universal Pictures","Researchers in Antarctica face a shape-shifting threat."],
+["Congo",1995,"Adventure","Paramount Pictures","An expedition searches for a lost city in the jungle."],
+["Eight Legged Freaks",2002,"Horror","Warner Bros.","Mutant spiders threaten a small town."],
+["Tremors",1990,"Horror","Universal Pictures","A desert town is threatened by underground creatures."],
+["Lake Placid",1999,"Horror","20th Century Studios","A giant crocodile lurks in a lake."],
+["Anaconda",1997,"Adventure","Sony Pictures","A film crew encounters a giant snake."],
+["The Lost World: Jurassic Park",1997,"Adventure","Universal Pictures","An expedition explores an island filled with dinosaurs."],
+["King Kong",2005,"Adventure","Universal Pictures","A film crew discovers a giant ape on a remote island."]
+].map((m,i)=>({id:i+1,title:m[0],year:m[1],genre:m[2],studio:m[3],description:m[4],watched:false,favorite:false,rating:0}));
+
+let movies;
+try {
+  const saved = localStorage.getItem("movieVaultMovies");
+  movies = saved ? JSON.parse(saved) : starter;
+  if (!Array.isArray(movies)) movies = starter;
+} catch(e) { movies = starter; }
+
+let tab = "all";
+const $ = id => document.getElementById(id);
+function save(){try{localStorage.setItem("movieVaultMovies",JSON.stringify(movies));}catch(e){}}
+function escapeHTML(s){return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+function render(){
+  $("total").textContent=movies.length;
+  $("watchedCount").textContent=movies.filter(m=>m.watched).length;
+  $("favoriteCount").textContent=movies.filter(m=>m.favorite).length;
+  const q=$("search").value.toLowerCase().trim();
+  let list=movies.filter(m=>
+    (tab==="all" || (tab==="watched"&&m.watched) ||
+     (tab==="unwatched"&&!m.watched) || (tab==="favorites"&&m.favorite)) &&
+    [m.title,m.studio,m.genre,String(m.year)].some(v=>String(v||"").toLowerCase().includes(q))
+  );
+  const sort=$("sort").value;
+  list.sort((a,b)=>sort==="az"?a.title.localeCompare(b.title):
+    sort==="za"?b.title.localeCompare(a.title):
+    sort==="new"?(b.year||0)-(a.year||0):(a.year||0)-(b.year||0));
+  $("movies").innerHTML=list.map(m=>`
+    <article class="movie">
+      <div class="poster">🎞️</div>
+      <h3>${escapeHTML(m.title)}</h3>
+      <p>${escapeHTML(m.year||"Year unknown")} · ${escapeHTML(m.genre||"Other")}</p>
+      <p>${escapeHTML(m.studio||"Studio not set")}</p>
+      <p>${escapeHTML(m.description||"No description added.")}</p>
+      <p>Rating: ${m.rating ? "★".repeat(m.rating)+"☆".repeat(5-m.rating) : "Not rated"}</p>
+      <button data-action="watched" data-id="${m.id}">${m.watched?"✓ Watched":"Mark Watched"}</button>
+      <button data-action="favorite" data-id="${m.id}">${m.favorite?"★ Favorited":"☆ Favorite"}</button>
+      <button data-action="rate" data-id="${m.id}">Rate Movie</button>
+      <button data-action="delete" data-id="${m.id}">Remove Movie</button>
+    </article>`).join("");
+  $("empty").classList.toggle("hidden",list.length!==0);
+}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>{
+  tab=b.dataset.tab;
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===b));
+  render();
+}));
+$("search").addEventListener("input",render);
+$("sort").addEventListener("change",render);
+$("showAdd").addEventListener("click",()=>{$("addPanel").classList.toggle("hidden");});
+$("cancelAdd").addEventListener("click",()=>{$("addPanel").classList.add("hidden");$("movieForm").reset();});
+
+$("movieForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  movies.push({
+    id:Date.now(),title:$("title").value.trim(),
+    year:Number($("year").value)||"",genre:$("genre").value,
+    studio:$("studio").value.trim(),description:$("description").value.trim(),
+    watched:false,favorite:false,rating:0
+  });
+  save();render();$("movieForm").reset();$("addPanel").classList.add("hidden");
+});
+
+$("movies").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-action]");
+  if(!b)return;
+  const id=Number(b.dataset.id);
+  const m=movies.find(x=>x.id===id);
+  if(!m)return;
+  if(b.dataset.action==="watched")m.watched=!m.watched;
+  if(b.dataset.action==="favorite")m.favorite=!m.favorite;
+  if(b.dataset.action==="rate"){
+    const answer=prompt("Rate from 1 to 5 stars. Enter 0 to clear rating:",String(m.rating||0));
+    if(answer===null)return;
+    const n=Number(answer);
+    if(!Number.isInteger(n)||n<0||n>5){alert("Please enter a whole number from 0 to 5.");return;}
+    m.rating=n;
+  }
+  if(b.dataset.action==="delete"){
+    if(!confirm("Remove "+m.title+" from your vault?"))return;
+    movies=movies.filter(x=>x.id!==id);
+  }
+  save();render();
+});
+render();
+</script>
+</body>
+</html>
