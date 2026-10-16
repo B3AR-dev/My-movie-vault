@@ -167,7 +167,11 @@ function render(){
     sort==="new"?(b.year||0)-(a.year||0):(a.year||0)-(b.year||0));
   $("movies").innerHTML=list.map(m=>`
     <article class="movie">
-      <div class="poster">🎞️</div>
+      <div class="poster">
+  ${movie.poster
+    ? `<img src="https://image.tmdb.org/t/p/w500${movie.poster}" alt="${movie.title} poster">`
+    : "🎞️"}
+</div>
       <h3>${escapeHTML(m.title)}</h3>
       <p>${escapeHTML(m.year||"Year unknown")} · ${escapeHTML(m.genre||"Other")}</p>
       <p>${escapeHTML(m.studio||"Studio not set")}</p>
