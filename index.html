@@ -168,9 +168,11 @@ function render(){
   $("movies").innerHTML=list.map(m=>`
     <article class="movie">
       <div class="poster">
-  ${movie.poster
-    ? `<img src="https://image.tmdb.org/t/p/w500${movie.poster}" alt="${movie.title} poster">`
-    : "🎞️"}
+  ${m.poster
+  ? `<img src="https://image.tmdb.org/t/p/w500${m.poster}" alt="${m.title} poster">`
+  : "🎞️"}
+    
+    
 </div>
       <h3>${escapeHTML(m.title)}</h3>
       <p>${escapeHTML(m.year||"Year unknown")} · ${escapeHTML(m.genre||"Other")}</p>
