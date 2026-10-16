@@ -189,23 +189,29 @@ $("sort").addEventListener("change",render);
 $("showAdd").addEventListener("click",()=>{$("addPanel").classList.toggle("hidden");});
 $("cancelAdd").addEventListener("click",()=>{$("addPanel").classList.add("hidden");$("movieForm").reset();});
 
-$("movieForm").addEventListener("submit",e=>{
+$("movieForm").addEventListener("submit", e => {
   e.preventDefault();
-  movies.push({
-    id:Date.now(),title:$("title").value.trim(),
-    year:Number($("year").value)||"",genre:$("genre").value,
-    studio:$("studio").value.trim(),description:$("description").value.trim(),
-    watched:false,favorite:false,rating:0
-  });
-  });
-  loadMoviePoster(movies[movies.length - 1]);
+
+  const movie = {
+    id: Date.now(),
+    title: $("title").value.trim(),
+    year: Number($("year").value) || "",
+    genre: $("genre").value,
+    studio: $("studio").value.trim(),
+    description: $("description").value.trim(),
+    watched: false,
+    favorite: false,
+    rating: 0
+  };
+
+  movies.push(movie);
   save();
   render();
   $("movieForm").reset();
   $("addPanel").classList.add("hidden");
-});
-});
 
+  loadMoviePoster(movie);
+});
 $("movies").addEventListener("click",e=>{
   const b=e.target.closest("button[data-action]");
   if(!b)return;
