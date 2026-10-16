@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171b2a">
+<title>My Movie Vault</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10131d;color:#f5f5f7;font-family:Arial,sans-serif}
+header{background:#191e2e;padding:24px 16px}
+h1{margin:0;color:#e8bd72;font-size:27px}
+header p{color:#c3c7d2;margin-bottom:0}
+main{max-width:850px;margin:auto;padding:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat,.panel,.movie{background:#1b2030;border:1px solid #30364a;border-radius:12px;padding:14px}
+.stat strong{display:block;font-size:24px;margin-top:6px}
+.progress{height:7px;background:#34394b;border-radius:8px;margin-top:14px;overflow:hidden}
+#bar{height:100%;background:#e8bd72;width:0}
+nav{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}
+button,select,input{font:inherit;border-radius:8px;padding:11px;border:1px solid #42495c}
+button{background:#e8bd72;color:#171b2a;border:0;font-weight:bold;cursor:pointer}
+nav button{background:#272d40;color:white}
+nav button.active{background:#e8bd72;color:#171b2a}
+input,select{background:#111522;color:white;width:100%;min-width:0}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0}
+#search{margin:12px 0}
+#movies{display:grid;gap:12px;margin-top:14px}
+.movie{display:flex;gap:13px;align-items:stretch}
+.poster{width:90px;min-width:90px;min-height:125px;border-radius:8px;background:linear-gradient(145deg,#343b55,#121521);display:flex;align-items:center;justify-content:center;font-size:34px}
+.details{flex:1;min-width:0}
+.details h3{margin:0 0 6px;font-size:18px}
+.muted{color:#b5bac8;font-size:13px}
+.desc{font-size:14px;line-height:1.4;color:#e0e2e9}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.actions button{font-size:12px;padding:9px}
+.actions .secondary{background:#343b50;color:white}
+.actions .heart{background:#343b50;color:#ff9bb0}
+.panel{margin-top:16px}
+.panel h2{font-size:19px}
+label{display:block;font-size:13px;color:#c3c7d2;margin:10px 0 5px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.full{grid-column:1/-1}
+#empty{padding:25px;text-align:center;color:#c3c7d2}
+footer{text-align:center;padding:25px;color:#8f96a8;font-size:12px}
+@media(max-width:390px){.poster{width:68px;min-width:68px;min-height:105px}.movie{padding:10px;gap:9px}.details h3{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<h1>🎬 MY MOVIE VAULT</h1>
+<p>Your movies. Your history. Your collection.</p>
+</header>
+<main>
+<section class="stats">
+<div class="stat">In library<strong id="total">0</strong></div>
+<div class="stat">Watched<strong id="seen">0</strong></div>
+<div class="stat">Remaining<strong id="left">0</strong></div>
+</section>
+<div class="progress"><div id="bar"></div></div>
+<p class="muted" id="progressText">0% watched</p>
+
+<nav id="tabs">
+<button class="active" data-tab="All">All Movies</button>
+<button data-tab="Unwatched">Unwatched</button>
+<button data-tab="Watched">Watched</button>
+<button data-tab="Favorites">❤️ Favorites</button>
+</nav>
+
+<input id="search" placeholder="🔎 Search movie titles...">
+<div class="filters">
+<select id="studio">
+<option value="">All studios</option>
+<option>Warner Bros.</option>
+<option>20th Century Studios</option>
+<option>Universal Pictures</option>
+<option>Paramount Pictures</option>
+<option>Lionsgate</option>
+<option>Sony Pictures</option>
+<option>HBO</option>
+<option>Other / independent</option>
+</select>
+<select id="genre">
+<option value="">All genres</option>
+<option>Horror</option>
+<option>Creature Feature</option>
+<option>Thriller</option>
+<option>Sci-Fi</option>
+<option>Adventure</option>
+<option>Action</option>
+<option>Drama</option>
+<option>Comedy</option>
+</select>
+<select id="sort">
+<option value="az">Title A–Z</option>
+<option value="za">Title Z–A</option>
+<option value="new">Newest year</option>
+<option value="old">Oldest year</option>
+</select>
+</div>
+
+<button id="showAdd" style="width:100%">＋ Add a Movie</button>
+<section id="addPanel" class="panel" hidden>
+<h2>Add a movie</h2>
+<form id="movieForm">
+<label>Movie title</label>
+<input id="title" required maxlength="120" placeholder="Movie name">
+<div class="formgrid">
+<div><label>Release year</label><input id="year" type="number" min="1888" max="2026" value="2020" required></div>
+<div><label>Genre</label><select id="newGenre"><option>Horror</option><option>Creature Feature</option><option>Thriller</option><option>Sci-Fi</option><option>Adventure</option><option>Action</option><option>Drama</option><option>Comedy</option></select></div>
+<div class="full"><label>Studio</label><select id="newStudio"><option>Warner Bros.</option><option>20th Century Studios</option><option>Universal Pictures</option><option>Paramount Pictures</option><option>Lionsgate</option><option>Sony Pictures</option><option>HBO</option><option>Other / independent</option></select></div>
+<div class="full"><label>Description (optional)</label><input id="description" maxlength="500" placeholder="Short movie summary"></div>
+</div>
+<button type="submit" style="margin-top:14px">Save Movie</button>
+<button type="button" id="cancelAdd" style="background:#343b50;color:white">Cancel</button>
+</form>
+</section>
+
+<div id="movies"></div>
+<footer>My Movie Vault · Personal Movie Tracker</footer>
+</main>
+<script>
+const starter=[
+["The Collector",2009,"Other / independent","Horror","A masked intruder turns a house into a deadly trap."],
+["The Collection",2012,"Other / independent","Horror","A survivor returns to face a dangerous collector."],
+["Wrong Turn",2003,"20th Century Studios","Horror","Travelers become lost in the remote woods."],
+["
