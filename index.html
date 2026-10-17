@@ -173,8 +173,7 @@ function escapeHTML(s){return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;
       `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`,
       {
         headers: {
-          Authorization: 
-Authorization: `Bearer YOUR_TMDB_READ_ACCESS_TOKEN`,
+        Authorization: "Bearer YOUR_TMDB_READ_ACCESS_TOKEN",
 
           accept: "application/json"
         }
