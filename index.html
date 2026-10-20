@@ -254,7 +254,7 @@ function escapeHTML(s){return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;
       : "";
     $("description").value = movie.overview || "";
 
-    alert("Movie found! Check the details, then tap Save Movie.");
+    $("successPopup").classList.remove("hidden");
   } catch (error) {
     console.error(error);
     alert("Movie search failed. Check your TMDB access token.");
