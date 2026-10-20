@@ -264,6 +264,10 @@ function escapeHTML(s){return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;
   }
 });
 
+$("closeSuccessPopup").addEventListener("click", () => {
+  $("successPopup").classList.add("hidden");
+});
+  
 function render(){
   $("total").textContent=movies.length;
   $("watchedCount").textContent=movies.filter(m=>m.watched).length;
