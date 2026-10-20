@@ -1,0 +1,12 @@
+
+{
+  "name": "My Movie Vault",
+  "short_name": "Movie Vault",
+  "description": "Your personal movie collection, watchlist, and favorites.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#10131d",
+  "theme_color": "#171b2a"
+}
