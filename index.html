@@ -7,6 +7,60 @@ HTML
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#171b2a">
 <title>My Movie Vault</title>
+  
+/* My Movie Vault custom success popup */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 14, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.popup-overlay.hidden {
+  display: none;
+}
+
+.vault-popup {
+  width: 100%;
+  max-width: 340px;
+  background: linear-gradient(145deg, #252b40, #171b2a);
+  border: 1px solid #e8bd72;
+  border-radius: 18px;
+  padding: 26px 22px 22px;
+  text-align: center;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.55);
+}
+
+.vault-popup-icon {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.vault-popup h2 {
+  color: #e8bd72;
+  font-size: 22px;
+  margin: 0 0 10px;
+}
+
+.vault-popup p {
+  color: #c3c7d2;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 22px;
+}
+
+.vault-popup button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#10131d;color:#f5f5f5;font-family:Arial,sans-serif}
